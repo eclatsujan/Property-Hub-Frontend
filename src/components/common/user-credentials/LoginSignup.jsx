@@ -1,6 +1,18 @@
 import Link from "next/link";
+import { useState } from "react";
+import { useAuthStore } from "../../../store/auth/auth";
 
 const LoginSignup = () => {
+    const [username,setUsername] = useState('');
+    const [password,setPassword] = useState('');
+    const {login} = useAuthStore();
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(username,password);
+        login(username,password); 
+    }
+    
     return (
         <div className="modal-content">
             <div className="modal-header">
@@ -76,7 +88,7 @@ const LoginSignup = () => {
 
                         <div className="col-lg-6 col-xl-6">
                             <div className="login_form">
-                                <form action="#">
+                                <form action="#" onSubmit={handleSubmit}>
                                     <div className="heading">
                                         <h4>Login</h4>
                                     </div>
@@ -112,6 +124,7 @@ const LoginSignup = () => {
                                             className="form-control"
                                             id="inlineFormInputGroupUsername2"
                                             placeholder="User Name Or Email"
+                                            onChange={(e)=>setUsername(e.target.value)}
                                         />
                                         <div className="input-group-prepend">
                                             <div className="input-group-text">
@@ -127,6 +140,7 @@ const LoginSignup = () => {
                                             className="form-control"
                                             id="exampleInputPassword1"
                                             placeholder="Password"
+                                            onChange={(e)=>setPassword(e.target.value)}
                                         />
                                         <div className="input-group-prepend">
                                             <div className="input-group-text">

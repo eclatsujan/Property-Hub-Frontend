@@ -1,8 +1,22 @@
 import Link from "next/link";
+import { useAuthStore } from "../../store/auth/auth";
 
 const Form = () => {
+  const {login} = useAuthStore();
+  const [state, setState] = useState({
+    email: "",
+    message: "",
+    file: null
+  });
+  
+  
+  const handleSubmit = (e) => {
+    e.preventDefault(); 
+    login(state.email, state.password);
+  }
+
   return (
-    <form action="#">
+    <form onSubmit={handleSubmit}>
       <div className="heading text-center">
         <h3>Login to your account</h3>
         <p className="text-center">
@@ -19,6 +33,7 @@ const Form = () => {
           type="text"
           className="form-control"
           required
+          value={state.email}
           placeholder="User Name Or Email"
         />
         <div className="input-group-prepend">
@@ -34,6 +49,7 @@ const Form = () => {
           type="password"
           className="form-control"
           required
+          value={state.password}
           placeholder="Password"
         />
         <div className="input-group-prepend">

@@ -1,18 +1,29 @@
 import Link from "next/link";
 import { useAuthStore } from "../../store/auth/auth";
+import { useEffect, useState } from "react";
+import { useRouter } from 'next/router';
 
 const Form = () => {
-  const {login} = useAuthStore();
-  const [state, setState] = useState({
-    email: "",
-    message: "",
-    file: null
-  });
+  const {login,isLoggedIn} = useAuthStore();
+  const [email,setEmail] = useState('');
+  const [password,setPassword] = useState('');
+  const router = useRouter();
   
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push('/login')
+    }
+  }, [isLoggedIn]);
   
-  const handleSubmit = (e) => {
+  if(isLoggedIn){
+    return <></>;
+  }
+  
+  const handleSubmit = async (e) => {
     e.preventDefault(); 
-    login(state.email, state.password);
+    await login(email,password);
+    console.log(isLoggedIn);
+    router.push('/my-dashboard');
   }
 
   return (
@@ -33,7 +44,8 @@ const Form = () => {
           type="text"
           className="form-control"
           required
-          value={state.email}
+          value={email}
+          onChange={(e)=>setEmail(e.target.value)}
           placeholder="User Name Or Email"
         />
         <div className="input-group-prepend">
@@ -49,7 +61,8 @@ const Form = () => {
           type="password"
           className="form-control"
           required
-          value={state.password}
+          value={password}
+          onChange={(e)=>setPassword(e.target.value)}
           placeholder="Password"
         />
         <div className="input-group-prepend">

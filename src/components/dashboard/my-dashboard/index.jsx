@@ -4,29 +4,8 @@ import MobileMenu from "../../common/header/MobileMenu";
 import Activities from "./Activities";
 import AllStatistics from "./AllStatistics";
 import StatisticsChart from "./StatisticsChart";
-const API_URL = process.env.API_URL
-
-// The following getServerSideProps function demonstrates how to make
-// API requests from the server. We basically take the auth-token cookie
-// and from it create an HTTP header, just like the API Proxy does.
-export async function getServerSideProps({ req, res }) {
-	try {
-		const Cookies = require('cookies')
-		const cookies = new Cookies(req, res)
-		const authToken = cookies.get('auth-token') || ''
-
-		const { email } = await axios
-			.get(`${API_URL}/me`, { headers: { 'auth-token': authToken } })
-			.then((response) => response.data)
-
-		return { props: { initialLoginStatus: `Logged in as ${email}` } }
-	} catch (err) {
-		return { props: { initialLoginStatus: 'Not logged in' } }
-	}
-}
 
 const index = () => {
-  const [loginStatus, setLoginStatus] = useState(initialLoginStatus || 'Loading...')
   return (
     <>
       {/* <!-- Main Header Nav --> */}

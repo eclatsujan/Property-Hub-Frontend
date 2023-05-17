@@ -5,5 +5,10 @@ yarn install
 yarn dev
 
 # Documentation
-This is zustand state management library and please research more on this. 
+## THis is documentation for frontend 
+https://themeforest.net/item/findhouse-real-estate-html-template/26376891 
+
+## Next JS documentation
+https://nextjs.org/
+## This is zustand state management library and please research more on this. 
 https://github.com/pmndrs/zustand

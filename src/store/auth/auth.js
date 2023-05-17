@@ -1,10 +1,10 @@
 import {create} from 'zustand';
 import {login} from '../../utils/auth';
 export const useAuthStore = create((set) => ({
-  auth: {},
+  isLoggedIn:false,
   login: (email, password) => {
     login(email, password).then((res) => {
-      set({ auth: res });
+      set({ isLoggedIn: true });
     });
   }
 }));
